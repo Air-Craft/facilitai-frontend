@@ -1,5 +1,4 @@
 
-const API_URL_BASE = 'https://facilitai-api.onrender.com'
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('search-form');
@@ -36,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Make API request
-      const response = await fetch(API_URL_BASE+'/query', {
+      console.log("Fetching...", apiBaseUrl+'/query')
+      const response = await fetch(apiBaseUrl+'/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query })
