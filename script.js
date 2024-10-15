@@ -1,4 +1,6 @@
 
+const API_URL_BASE = 'https://facilitai-api.onrender.com'
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('search-form');
   const queryInput = document.getElementById('query-input');
@@ -6,13 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('container');
   const sampleQuery = document.getElementById('sample-query');
 
+  let apiBaseUrl;
+  if (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+  ) {
+    // Running on localhost - use local API server
+    apiBaseUrl = 'http://localhost/api';
+  } else {
+    // Running on live site - use live API endpoint
+    apiBaseUrl = 'https://facilitai-api.onrender.com';
+  }
+
+
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log("Hi", queryInput)
     const query = queryInput.value.trim();
     if (!query) return;
-    console.log("HEY: ", JSON.stringify({ query }))
-
 
     // Show loading message
     responseContainer.innerHTML = '<p>Loading...</p>';
@@ -23,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Make API request
-      const response = await fetch('/api/query', {
+      const response = await fetch(API_URL_BASE+'/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query })
