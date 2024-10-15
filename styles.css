@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20vh;
+  transition: margin-top 0.5s;
+}
+
+#logo {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+#query-input {
+  width: 500px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+#search-form button {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+#sample-query {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+#response-container {
+  margin-top: 40px;
+  max-width: 800px;
+  text-align: left;
+}
+
+.hidden {
+  display: none;
+}
+
+.shrink {
+  margin-top: 5vh !important;
+}
