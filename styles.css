@@ -1,56 +1,139 @@
+/* Styles for FacilitAI */
+
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec);
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-#container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20vh;
-  transition: margin-top 0.5s;
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-#logo {
-  width: 300px;
-  margin-bottom: 20px;
-}
-#explainer {
-  margin-top:-0.8rem;
-  margin-bottom: 2rem;
-  color: grey;
-  font-style: italic;
-  font-size: 0.9rem;
+header {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 20px 10px;
+    /* Remove background color to match the rest of the page */
+    background-color: transparent;
 }
 
-#query-input {
-  width: 500px;
-  padding: 10px;
-  font-size: 18px;
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    margin: 0;
 }
 
-#search-form button {
-  padding: 10px 20px;
-  font-size: 18px;
+header .strapline {
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
 }
 
-#sample-query {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-#response-container {
-  margin-top: 40px;
-  max-width: 800px;
-  text-align: left;
+#conversation {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.assistant {
+    justify-content: flex-start;
+}
+
+.message .content {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.message.user .content {
+    background-color: #daf5d9;
+    text-align: right;
+}
+
+.message.assistant .content {
+    background-color: #f0f0f0;
+    text-align: left;
+}
+
+#input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+#chat-form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+#chat-form input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#chat-form button {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #555;
+    cursor: pointer;
+}
+
+#clear-conversation {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #555;
+    cursor: pointer;
+}
+
+#loading-indicator {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
-.shrink {
-  margin-top: 5vh !important;
+/* Remove any header animations */
+.header-up {
+    transform: none;
 }

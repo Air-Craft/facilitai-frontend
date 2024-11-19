@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FacilitAI</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <title>FacilitAI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Google Fonts and Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css?3">
 </head>
 <body>
-  <div id="container">
-    <h1>FacilitAI</h1>
-    <p id="explainer">An intelligent knowledgebase of facilitation processes<br/>across many genres from Authentic Relating to Meditation.</p>
-    <form id="search-form">
-      <!--<img src="logo.png" alt="Logo" id="logo">-->
-      <input type="text" id="query-input" name="query" autocomplete="off" placeholder="Enter your query">
-      <button type="submit">Search</button>
-      <p id="sample-query"><em>Try: "Show me some activites for small groups that work on empathy"</em></p>
-    </form>
-    <div id="response-container"></div>
-  </div>
+    <div class="container">
+        <header id="header">
+            <h1>FacilitAI</h1>
+            <p class="strapline">An intelligent knowledgebase of facilitation processes across many genres from Authentic Relating to Meditation.</p>
+        </header>
+
+        <main id="main-content">
+            <div id="conversation">
+                <!-- Conversation messages will appear here -->
+            </div>
+            <div id="input-area">
+                <!-- Reintroducing the form -->
+                <form id="chat-form">
+                    <input type="text" id="user-input" placeholder="Show me some activities for couples to work on communication" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+                <button id="clear-conversation" title="Clear Conversation"><i class="fas fa-broom"></i></button>
+            </div>
+        </main>
+
+        <div id="loading-indicator" class="hidden">
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script src="script.js?3"></script>
 </body>
 </html>
