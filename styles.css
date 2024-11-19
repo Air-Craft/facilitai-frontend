@@ -16,6 +16,13 @@ body {
   width: 300px;
   margin-bottom: 20px;
 }
+#explainer {
+  margin-top:-0.8rem;
+  margin-bottom: 2rem;
+  color: grey;
+  font-style: italic;
+  font-size: 0.9rem;
+}
 
 #query-input {
   width: 500px;
