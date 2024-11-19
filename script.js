@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatForm = document.getElementById('chat-form');
     const userInput = document.getElementById('user-input');
     const conversation = document.getElementById('conversation');
-    const header = document.getElementById('header');
     const loadingIndicator = document.getElementById('loading-indicator');
     const clearConversationBtn = document.getElementById('clear-conversation');
 
-    let messages = [];
     let initialPrompt = null;
+    const FIRST_PROMPT_ROLE = "user"; // Role for the initial prompt
+    let conversationHistory = [];     // Stores the conversation messages excluding the initial prompt
 
     chatForm.addEventListener('submit', async (e) => {
         e.preventDefault(); // Prevent the form from submitting the traditional way
@@ -27,23 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show loading indicator
         loadingIndicator.classList.remove('hidden');
 
-        // Prepare messages array
+        // Prepare the messages array
+        let messages = [];
+
         if (!initialPrompt) {
             // First query
-            messages = [{ "role": "user", "content": userText }];
+            // Messages array contains just the user's input
+            messages.push({ "role": "user", "content": userText });
         } else {
             // Subsequent queries
+            // Start messages array with the stored prompt, with role FIRST_PROMPT_ROLE
+            messages.push({ "role": FIRST_PROMPT_ROLE, "content": initialPrompt });
+
+            // Add previous conversation messages (excluding initialPrompt)
+            messages = messages.concat(conversationHistory);
+
+            // Add the current user input
             messages.push({ "role": "user", "content": userText });
-        }
-
-        // Prepare POST data
-        let postData = {
-            "messages": messages
-        };
-
-        if (initialPrompt) {
-            // Include initial prompt as the first message
-            postData.messages.unshift({ "role": "system", "content": initialPrompt });
         }
 
         try {
@@ -55,9 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Append '/query' to base URL to get the full endpoint
             const apiUrl = apiBaseUrl + '/query';
 
-             console.log("SUBMIT")
+            // Prepare POST data
+            let postData = {
+                "messages": messages
+            };
+ console.log("SUBMIT")
             console.dir(postData)
-
 
             // Send POST request
             const response = await fetch(apiUrl, {
@@ -67,9 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await response.json();
-
-
-            console.log("RESPONSE")
+  console.log("RESPONSE")
             console.dir(data)
 
             // Hide loading indicator
@@ -83,13 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const assistantMessageElem = conversation.lastElementChild.querySelector('.content');
             assistantMessageElem.innerHTML = markdownToHtml(assistantContent);
 
-            // Store initial prompt
+            // Store initialPrompt if it's the first query
             if (!initialPrompt && data.prompt) {
-                initialPrompt = data.prompt;
+                initialPrompt = data.prompt; // Use the prompt returned from the API
             }
 
-            // Add assistant's response to messages
-            messages.push({ "role": "assistant", "content": assistantContent });
+            // Update conversationHistory
+            // We store all messages after the initialPrompt
+            conversationHistory.push({ "role": "user", "content": userText });
+            conversationHistory.push({ "role": "assistant", "content": assistantContent });
 
         } catch (error) {
             console.error('Error:', error);
@@ -100,11 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     clearConversationBtn.addEventListener('click', () => {
         conversation.innerHTML = '';
-        messages = [];
         initialPrompt = null;
+        conversationHistory = [];
         userInput.value = '';
-        // Remove any header animations or transformations
-        header.classList.remove('header-up');
     });
 
     function addMessage(role, content) {
