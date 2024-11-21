@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let postData = {
                 "messages": messages
             };
- console.log("SUBMIT")
+            console.log("SUBMIT")
             console.dir(postData)
 
             // Send POST request
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await response.json();
-  console.log("RESPONSE")
+            console.log("RESPONSE")
             console.dir(data)
 
             // Hide loading indicator
@@ -131,6 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
         html = html.replace(/^(.+)[\r\n]=+/gm, '<h1>$1</h1>');
         html = html.replace(/^(.+)[\r\n]-+/gm, '<h2>$1</h2>');
 
+        html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+        html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        
         // Bold and italics
         html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
